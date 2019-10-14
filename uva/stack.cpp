@@ -1,33 +1,55 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-int main()
-{
-	int a,b,n,indx=0;
-	cin >> n;
-	vector<int> max_val(n+1,0);
-	for(int i=0;i<n;i++)
-	{
-		cin >> a;
-		if(a==1)
-		{
-			cin >> b;
-			if(b>max_val[indx])
-				max_val[indx+1] = b;
-			else
-				max_val[indx+1] = max_val[indx];
-            indx++;
-		}
-		else if(a==2 && indx>0)
-		{
-			indx--;
-		}
-		else
-		{
-			cout << max_val[indx] << endl;
-		}
-	}
-	return 0;
+typedef long long Int;
+
+int main(){
+    Int t, n, m, x;
+    Int tmp;
+    cin >> t;
+    while(t--){
+        queue<Int> a, b;
+        cin >> n >> m >> x;
+        for(int i = 0; i < n; i++)
+        {
+            cin >> tmp;
+            a.push(tmp);
+        }
+        for(int i = 0; i < m; i++){
+            cin >> tmp;
+            b.push(tmp);
+        }
+        Int ans = 0, sum = 0;
+        while(!a.empty() && !b.empty()){
+            if(a.front() <= b.front()){
+                sum += a.front();
+                a.pop();
+            }
+            else  {
+                sum += b.front();
+                b.pop();
+            }
+            if(sum > x)
+                break;
+            ans++;
+        }
+        while(!a.empty()){
+            sum += a.front();
+            a.pop();
+            if(sum > x)
+                break;
+            ans++;
+        }
+
+        while(!b.empty()){
+            sum += b.front();
+            b.pop();
+            if(sum > x)
+                break;
+            ans++;
+        }
+        cout << ans << endl;
+    }
+    return 0;
 }
-		

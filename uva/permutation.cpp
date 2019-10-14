@@ -1,38 +1,19 @@
-#include<bits/stdc++.h>
+#include <iostream>
 
 using namespace std;
 
-int num[100],n ;
-bool used[100];
-
-void permutation(int pos)
-{
-    if(pos==n+1)
-    {
-        for(int i=1;i<=n;i++)
-            cout << num[i] << " " ;
-        cout << endl;
+void permu(string s, int l, int r){
+    if(l == r){
+        cout << s << endl;
         return ;
     }
-    for(int i=1;i<=n;i++)
-    {
-        if(!used[i])
-        {
-            num[pos] = i ;
-            used[i] = true ;
-            permutation(pos+1);
-            used[i] = false ;
-        }
+    for(int i = l; i <= r; i++){
+        swap(s[l], s[i]);
+        permu(s, l+1, r);
+        swap(s[l], s[i]);
     }
 }
-
-int main()
-{
-    memset(used,false,sizeof(used)) ;
-    while(cin >> n)
-    {
-        permutation(1);
-        cout << endl;
-    }
-    return 0;
+int main(){
+    string str = "1234";
+    permu(str, 0, str.length()-1);
 }
